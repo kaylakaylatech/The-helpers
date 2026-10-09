@@ -18,18 +18,19 @@ export default function App() {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(false);
   const [surveys, setSurveys] = useState<SurveyData[]>([]);
 
-  // Check initial admin auth and load surveys
+  // Reset admin authentication on initial load to ensure password prompt is always required
   useEffect(() => {
-    const token = localStorage.getItem('admin_auth_token');
-    if (token) {
-      setIsAdminAuthenticated(true);
-    }
+    localStorage.removeItem('admin_auth_token');
+    setIsAdminAuthenticated(false);
     loadSurveysList();
   }, []);
 
   const loadSurveysList = async () => {
     try {
-      const res = await fetch('/api/surveys?key=123456');
+      const token = localStorage.getItem('admin_auth_token');
+      const res = await fetch('/api/surveys?key=19482026', {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
       if (res.ok) {
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
@@ -79,13 +80,7 @@ export default function App() {
   };
 
   const handleAdminTrigger = () => {
-    if (isAdminAuthenticated) {
-      setCurrentView('admin');
-      loadSurveysList();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      setShowLoginModal(true);
-    }
+    setShowLoginModal(true);
   };
 
   const handleLoginSuccess = () => {
@@ -221,9 +216,6 @@ export default function App() {
         >
           <Lock className="w-3.5 h-3.5 text-emerald-600 group-hover:rotate-12 transition-transform" />
           <span>ADMIN / NGƯỜI CHĂN</span>
-          {isAdminAuthenticated && (
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          )}
         </button>
       </div>
 

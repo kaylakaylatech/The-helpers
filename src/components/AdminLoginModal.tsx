@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Lock, KeyRound, X, ShieldAlert, Check } from 'lucide-react';
 
 interface AdminLoginModalProps {
@@ -15,6 +15,13 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setPassword('');
+      setError('');
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -40,12 +47,12 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
       }
     } catch (err) {
       // Local check fallback
-      if (password === '123456') {
+      if (password === '19482026') {
         localStorage.setItem('admin_auth_token', 'local_authenticated');
         onLoginSuccess();
         setPassword('');
       } else {
-        setError('Mật khẩu không chính xác. Mật khẩu mặc định là: 123456');
+        setError('Mật khẩu Người Chăn không chính xác. Vui lòng thử lại.');
       }
     } finally {
       setLoading(false);
@@ -92,15 +99,12 @@ export const AdminLoginModal: React.FC<AdminLoginModalProps> = ({
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Nhập mật khẩu (Mặc định: 123456)"
+                placeholder="Nhập mật khẩu Người Chăn..."
                 autoFocus
                 className="w-full pl-4 pr-10 py-3 rounded-2xl border border-stone-200 focus:outline-hidden focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500 text-stone-800 text-sm bg-stone-50/50"
               />
               <KeyRound className="w-4 h-4 text-stone-400 absolute right-3.5 top-3.5 pointer-events-none" />
             </div>
-            <p className="text-[11px] text-stone-400 mt-1.5 italic">
-              * Mật khẩu thử nghiệm mặc định: <span className="font-mono font-bold text-stone-600">123456</span>
-            </p>
           </div>
 
           <div className="pt-2 flex gap-3">

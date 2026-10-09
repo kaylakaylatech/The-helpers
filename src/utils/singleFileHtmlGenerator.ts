@@ -377,7 +377,7 @@ export function generateStandaloneHtml(): string {
     <div class="modal-card">
       <div style="font-size: 40px; margin-bottom: 8px;">🔒</div>
       <h3 style="font-size: 20px; font-weight: 800; margin-bottom: 6px;">Đăng Nhập Người Chăn</h3>
-      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Vui lòng nhập mật khẩu bảo mật (Mặc định: 123456)</p>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Vui lòng nhập mật khẩu bảo mật của Người Chăn</p>
       <input type="password" id="adminPwdInput" placeholder="Nhập mật khẩu..." style="width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #d6d3d1; margin-bottom: 16px; font-size: 14px;">
       <div style="display: flex; gap: 10px;">
         <button onclick="closeLoginModal()" style="flex: 1; padding: 10px; border-radius: 12px; border: 1px solid #d6d3d1; background: #fafaf9; cursor: pointer;">Hủy</button>
@@ -480,11 +480,11 @@ export function generateStandaloneHtml(): string {
 
     function verifyAdminPassword() {
       const pwd = document.getElementById('adminPwdInput').value;
-      if (pwd === '123456') {
+      if (pwd === '19482026') {
         closeLoginModal();
         renderAdminDashboard();
       } else {
-        alert('Mật khẩu không chính xác! (Mặc định: 123456)');
+        alert('Mật khẩu Người Chăn không chính xác. Vui lòng thử lại!');
       }
     }
 
