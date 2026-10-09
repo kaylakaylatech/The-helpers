@@ -1,0 +1,6 @@
+{
+  "name": "Khảo Sát Đồng Cỏ & Định Hướng Phát Triển",
+  "description": "Hệ thống khảo sát thông tin và định hướng phát triển dành cho Anh Chị Em và Người Giúp Việc với phân tích đồng hành thông minh.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
